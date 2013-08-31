@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "name": "weather-on-the-go",
   "private": true,
   "version": "0.0.0",
@@ -20,3 +21,26 @@
   "author": "",
   "license": ""
 }
+=======
+    "name": "weather-on-the-go",
+    "private": true,
+    "version": "0.0.0",
+    "description": "a Sails application",
+    "dependencies": {
+        "sails": "0.9.3",
+        "grunt": "0.4.1",
+        "sails-disk": "~0.9.0",
+        "ejs": "0.8.4",
+        "optimist": "0.3.4",
+        "sails-mongo" : "0.9.*"
+    },
+    "scripts": {
+        "start": "node app.js",
+        "debug": "node debug app.js"
+    },
+    "main": "app.js",
+    "repository": "",
+    "author": "",
+    "license": ""
+}
+>>>>>>> 56afe4d2eeab2bad29a39ed4d4887f1d2cce8378
