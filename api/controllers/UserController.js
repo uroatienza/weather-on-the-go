@@ -20,6 +20,10 @@ module.exports = {
 
     // This will render the view: 
     // /home/gian/weather-on-the-go/views/user/index.ejs
+    if(req.session.user == undefined || req.session.user == null) {
+      res.redirect("/");
+      return;
+    }
     res.redirect("/user/dashboard");
 
   },
@@ -32,6 +36,10 @@ module.exports = {
 
     // This will render the view: 
     // /home/gian/weather-on-the-go/views/user/dashboard.ejs
+    if(req.session.user == undefined || req.session.user == null) {
+      res.redirect("/");
+      return;
+    }
     res.view();
 
   },

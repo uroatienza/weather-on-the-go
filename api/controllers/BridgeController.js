@@ -20,7 +20,30 @@ module.exports = {
 
     // This will render the view: 
     // /home/gian/weather-on-the-go/views/bridge/login.ejs
-    res.view();
+   if(req.param("username") == undefined || req.param("password") == undefined) {
+      req.session.message = {
+        type : "error",
+        message : "Please complete all fields before continuing."
+      };
+   }else {
+      User.findOne({
+        username  : req.param("username"),
+        password  : req.param("password")
+      }).done(function(err, user) {
+        if(err) {
+          req.session.message =  {
+              type    : "error",
+              message : "Username and Password has mismatched!"
+          };
+          res.redirect("/");
+          return;
+        }else {
+          req.session.user = user;
+          res.redirect("/user/dashboard");
+          return;
+        }
+      });
+   }
 
   },
 
