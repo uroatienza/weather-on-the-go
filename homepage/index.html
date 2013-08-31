@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<link rel="shorcut icon" type="favicon" href="../../assets/ico">
+
+	<link rel="stylesheet" type="text/css" href="animation.css">
+	<link rel="stylesheet" type="text/css" href="styles/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="styles/styles2.css">
+
+	<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/jquery.leanModal.min.js"></script>
+
+	<title>Weather On The Go</title>
+</head>
+<body>
+<div class="slider">
+	<div class="header">
+		<div class="container">	
+		  	<nav class="navbar navbar-default" role="navigation">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex-collapse">
+						<span class="sr-only">Toggle Navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+				<a href="/"><div class="logo"></div></a>
+				</div>
+				<div class="navigation">
+					<div class="collapse navbar-collapse navbar-ex1-collapse">
+						<ul class="nav navbar-nav">
+							<li class="active"><a href="/"><i class="glyphicon glyphicon-home"></i>Home</a></li>
+							<li class=""><a href=""><i class="glyphicon glyphicon-cog"></i>How it works</a></li>
+							<li class=""><a href=""><i class="glyphicon glyphicon-wrench"></i>Features</a></li>
+							<li class=""><a href=""><i class="glyphicon glyphicon-cloud"></i>About</a></li>
+							<li class=""><a href=""><i class="glyphicon glyphicon-phone"></i>Contacts</a></li>
+						</ul>
+						<ul class="nav navbar-nav navbar-right">
+							<li><a href="#"><i class="glyphicon glyphicon-heart"></i>Register</a></li>
+							<li><a href="#loginmodal" id="modaltrigger"><i class="glyphicon glyphicon-log-in"></i>Login</a></li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+		</div>
+	</div>
+	<div class="tagline">
+		<div class="container">
+			<div class="sliders-content">
+				<div class="sms-icon slideRight"></div>
+				<div class="message slideLeft">
+					<p>
+						Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet.
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="main">
+	<div class="row">
+	<div class="container content">
+		
+			<div class="article-content col-md-4">
+				<div class="title"><h2>The Weather API's</h2></div>
+				<div class="weatherapi"></div>
+				<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
+			</div>
+			<div class="article-content col-md-4">
+				<div class="title"><h2>SMS Integrations</h2></div>
+				<div class="sms"></div>
+				<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+			</div>
+			<div class="article-content col-md-4">
+				<div class="title"><h2>Get Updated</h2></div>
+				<div class="updated"></div>
+				<p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper.</p>
+			</div>
+		
+	</div>
+	</div>
+</div>
+<div class="footer">
+	<div class="container">
+		<p>Copyright &amp; 2013 <a href="#">Weather on the go</a>. All rights reserved.</p>
+      	<p><b>POWERED BY</b></p>
+      	      <a href="www.gorated.ph"><img src="images/goratedlogo.png" title="Homepage of GoRated" /></a>
+	</div>
+</div>
+
+<!-- Modal -->
+<div id="loginmodal" style="display:none;">
+	<h1>Login</h1>
+	<form id="loginform" name="loginform" method="" action="">
+		<label for="username">Username:</label>
+		<input type="text" name="username" id="username" class="txtfield" tabindex="1" placeHolder="Username">
+		<label for="password">Password:</label>
+		<input type="password" name="password" id="password" class="txtfield" tabindex="2" placeHolder="Password">
+		<input type="submit" name="loginbtn" id="loginbtn" class="btn btn-info" value="Login" tabindex="3">
+	</form>	
+</div>
+
+<script type="text/javascript">
+	$(function(){
+		$('#loginform').submit(function(e){
+			return false;
+	});
+	$('#modaltrigger').leanModal({
+		top: 110, overlay: 0.45, closeButton: ".hidemodal"
+	});
+});
+</script>
+
+</body>
+</html>
