@@ -23,14 +23,15 @@
   <div class="container">
     <p>Copyright &amp; 2013 <a href="#">Weather on the go</a>. All rights reserved.</p>
         <p><b>POWERED BY</b></p>
-              <a href="www.gorated.ph"><img src="images/goratedlogo.png" title="Homepage of GoRated" /></a>
+              <a href="www.gorated.ph"><img src="/images/goratedlogo.png" title="Homepage of GoRated" /></a>
   </div>
 </div>
 
 <!-- Modal -->
 <div id="loginmodal" style="display:none;">
   <h1>Login</h1>
-  <form id="loginform" name="loginform" method="" action="">
+  <form id="loginform" name="loginform" method="POST" action="/bridge/login">
+    <input type="hidden" name="_csrf" value="<%-_csrf%>" />
     <label for="username">Username:</label>
     <input type="text" name="username" id="username" class="txtfield" tabindex="1" placeHolder="Username">
     <label for="password">Password:</label>
@@ -77,9 +78,11 @@
 
 <script type="text/javascript">
   $(function(){
-    $('#registerform').submit(function(e){
+
+     $('#loginform').submit(function(e){
       return false;
-  });
+   });
+
   $('#modaltrigger').leanModal({
     top: 110, overlay: 0.45, closeButton: ".hidemodal"
   });
