@@ -1,12 +1,12 @@
 var cronJob = require('cron').CronJob;
 var http 	= require("http");
 
-//new cronJob('* */03 * * * ', function(){
-new cronJob('* * * * * *', function() {
+new cronJob('* */03 * * * ', function(){
+//new cronJob('* * * * * *', function() {
    var options = {
-   		host : "localhost:1337",
-   		port : 80,
-   		path : "/api/forcast",
+   		host : "localhost",
+   		port : 1337,
+   		path : "/api/forecast",
    		method : "GET"
    };
 
@@ -19,6 +19,10 @@ new cronJob('* * * * * *', function() {
    		res.on('end',function() {
    			console.log("data ended..");
    		});
+   });
+
+   request.on('error',function(e) {
+   	console.log(e);
    });
 
 
