@@ -20,10 +20,12 @@ module.exports = {
    */ 
   mobile: function (req,res) {
     if(req.param("_csrf") == undefined) {
-      return res.redirect("/",200);
+       res.redirect("/",200);
+       return;
     }
     if(req.param("mobile_number") == undefined || req.param("mobile_number") == "") {
-      return res.redirect("/",200);
+       res.redirect("/",200);
+       return;
     }
 
     crypto.randomBytes(8, function(ex, buf) {
@@ -31,7 +33,8 @@ module.exports = {
       var token = {
         token   : buf.toString('base64').replace(/\//g,'_').replace(/\+/g,'-'),
         created : new Date(), //today
-        expires : new Date(new Date().getTime() + (24 * 60 * 60 * 1000)) //tomorrow
+        expires : new Date(new Date().getTime() + (24 * 60 * 60 * 1000)), //tomorrow,
+        active  : true
       };
       User.findOne({
         mobile_number : req.param("mobile_number")
@@ -67,7 +70,7 @@ module.exports = {
 function createUserInstance(req, res, token) {
   User.create({
         mobile_number : req.param("mobile_number"),
-        token         : token
+        tokens         : [token]
       }).done(function( err , user) {
           if(err) {
             req.session.message = {
@@ -87,5 +90,37 @@ function createUserInstance(req, res, token) {
 }
 
 function updateUserInstance(req, res, token, user) {
-  
+    var tokens = user.tokens;
+    for(var i = 0; i < tokens.length; i++) {
+      tokens[i].active = false;
+    }
+    crypto.randomBytes(8, function(ex, buf) {
+
+      var token = {
+        token   : buf.toString('base64').replace(/\//g,'_').replace(/\+/g,'-'),
+        created : new Date(), //today
+        expires : new Date(new Date().getTime() + (24 * 60 * 60 * 1000)), //tomorrow,
+        active  : true
+      };
+      tokens.push(token);
+
+      user.tokens = tokens;
+
+      user.save(function(err) {
+        if(err) {
+          req.session.message = {
+              type      : 'error',
+              message   :  'A database error has occured'
+            };
+            res.redirect("/");
+          }else {
+            req.session.message = {
+              type      :   'success',
+              message   :   'Your phone number has been updated to the database please send the validation token that has been texted to you.'
+            };
+
+            res.redirect("/");
+          }
+      });
+    });
 }
