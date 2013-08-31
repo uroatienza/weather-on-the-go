@@ -6,6 +6,8 @@
  */
 
 var crypto = require('crypto');
+var http   = require("http");
+var querystring = require('querystring');
 
 module.exports = {
 
@@ -36,22 +38,16 @@ module.exports = {
         expires : new Date(new Date().getTime() + (24 * 60 * 60 * 1000)), //tomorrow,
         active  : true
       };
-      User.findOne({
-        mobile_number : req.param("mobile_number")
-      }).done(function(err, user) {
-        if(err || !user || user == undefined || user == null) {
-          return createUserInstance(req, res, token);
-        }else {
-          return updateUserInstance(req, res, token, user);
-        }
-      });
-      
+      sendFireFlyRequest(req, res, token);
     });
 
 
   },
 
+  verify : function(req, res) {
 
+    res.view();
+  },
   /**
    * /signup/web
    */ 
@@ -123,4 +119,58 @@ function updateUserInstance(req, res, token, user) {
           }
       });
     });
+}
+
+function sendFireFlyRequest(req, res, token) {
+  var post_data = querystring.stringify({
+          'api'     :   'MxKN8TTCvSgzJa5zBdqE',
+          'number'  :   req.param('mobile_number'),
+          'message' :   "Thanks for registering with WeatherOnTheGo. \n\nVerification Code: "+token.token+"\n\n Use it to confirm your account. -WOTG Team"
+  });
+
+  var options = {
+    hostname    : "www.semaphore.co",
+    port    : 80,
+    path    : "/api/sms",
+    method  : "POST",
+    headers : {
+      'Content-Type'    :   'application/x-www-form-urlencoded',
+      'Content-Length'  :   post_data.length
+    } 
+  };
+
+
+  var request = http.request(options, function(result) {
+
+    console.log('STATUS: ' + res.statusCode);
+    console.log('HEADERS: ' + JSON.stringify(res.headers));
+
+    result.setEncoding("utf8");
+
+    result.on('data', function(chunk) {
+      console.log(chunk);
+      User.findOne({
+        mobile_number : req.param("mobile_number")
+      }).done(function(err, user) {
+        if(err || !user || user == undefined || user == null) {
+          return createUserInstance(req, res, token);
+        }else {
+          return updateUserInstance(req, res, token, user);
+        }
+      });     
+    });
+  });
+ 
+  request.on('error',function(e) {
+    req.session.message = {
+      type    :   'error',
+      message :   'An error has occured while trying to send teh message!'
+    };
+    console.log(e);
+    res.redirect("/");
+  });
+
+
+  request.write(post_data);
+  request.end();
 }
