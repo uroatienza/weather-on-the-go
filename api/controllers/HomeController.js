@@ -20,7 +20,11 @@ module.exports = {
 
     // This will render the view: 
     // /home/gian/weather-on-the-go/views/home/index.ejs
-    res.view();
+    var data = {
+      title   :   'Weather To Go | Home',
+
+    };
+    res.view(data);
 
   },
 
