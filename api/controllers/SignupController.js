@@ -48,6 +48,56 @@ module.exports = {
 
     res.view();
   },
+
+  confirm : function(req, res) {
+    if(req.param("_csrf") == undefined || req.param("_csrf") == "") {
+      req.session.message = {
+        type    : "error",
+        message : "Session may be expired! Please clear all cookies and cache."
+      };
+      res.redirect("/signup/verify");
+      return;
+    }
+
+    if(req.param("mobile_number") == undefined || req.param("mobile_number") == "" ||
+       req.param("verify_token") == undefined || req.param("verify_token") == "") {
+      req.session.message = {
+        type      : "error",
+        message   : "Please complete all fields to be able to verify your account!"
+      };
+      res.redirect("/signup/verify");
+      return;
+    }
+
+    User.findOne({
+      mobile_number   : req.param("mobile_number"),
+      // "tokens.token"  : req.param("verify_token")
+    }).done(function(err, user){
+        var tokens = user.tokens;
+        
+        for(var i = 0; i < tokens.length; i++) {
+          tokens[i].active = false;
+        }
+
+        user.active = true;
+
+        user.tokens = tokens;
+
+        user.save(function(err) {
+            if(err) {
+              req.session.message = {
+                type      : "error",
+                message   : "A database error has occured."
+              };
+              res.redirect("/signup/verify");
+              return;
+            }
+            res.redirect("/user/dashboard");
+        });
+    });
+
+
+  },
   /**
    * /signup/web
    */ 
@@ -55,8 +105,7 @@ module.exports = {
 
     // This will render the view: 
     // /home/gian/weather-on-the-go/views/signup/web.ejs
-    res.view();
-
+   
   },
 
 
@@ -66,7 +115,8 @@ module.exports = {
 function createUserInstance(req, res, token) {
   User.create({
         mobile_number : req.param("mobile_number"),
-        tokens         : [token]
+        tokens        : [token],
+        active        : false
       }).done(function( err , user) {
           if(err) {
             req.session.message = {
