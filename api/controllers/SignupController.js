@@ -5,6 +5,8 @@
  * @description	:: Contains logic for handling requests.
  */
 
+require('crypto');
+
 module.exports = {
 
   /* e.g.
@@ -19,9 +21,15 @@ module.exports = {
   mobile: function (req,res) {
     if(req.param("_csrf") == undefined) {
       return res.redirect("/",200);
-    }else {
-      return res.send(_csrf);
     }
+    if(req.param("mobile_number") == undefined || req.param("mobile_number") == "") {
+      return res.redirect("/",200);
+    }
+
+
+
+    
+
 
   },
 
@@ -35,6 +43,8 @@ module.exports = {
     // /home/gian/weather-on-the-go/views/signup/web.ejs
     res.view();
 
-  }
+  },
+
+
 
 };
