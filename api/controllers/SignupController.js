@@ -39,7 +39,7 @@ module.exports = {
         if(err || !user || user == undefined || user == null) {
           return createUserInstance(req, res, token);
         }else {
-
+          return updateUserInstance(req, res, token, user);
         }
       });
       
@@ -84,4 +84,8 @@ function createUserInstance(req, res, token) {
             res.redirect("/");
           }
       });
+}
+
+function updateUserInstance(req, res, token, user) {
+  
 }
