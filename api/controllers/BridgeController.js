@@ -34,6 +34,14 @@ module.exports = {
     // /home/gian/weather-on-the-go/views/bridge/logout.ejs
     res.view();
 
+  },
+
+  register: function(req, res) {
+    var data = {
+      title   : 'Weather On The Go | Register Now'
+      
+    };
+    res.view(data);
   }
 
 };
