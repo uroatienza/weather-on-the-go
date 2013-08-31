@@ -105,13 +105,80 @@ module.exports = {
 
     // This will render the view: 
     // /home/gian/weather-on-the-go/views/signup/web.ejs
-   
+   if(req.param("_csrf") == undefined || req.param("_csrf") == "") {
+      req.session.message = {
+        type : "error",
+        message : "A Session Error has occured. Please refresh your browser to continue."
+      };
+      res.redirect("/");
+      return;
+   }
+
+   if(req.param("username") == undefined || req.param("password") == undefined || req.param("repeat_password") == undefined || req.param("email") == undefined || req.param("password") != req.param("repeat_password")) {
+    req.session.message = {
+      type : "error",
+      message : "Please complete all fields before continuing the registration process."
+    };
+    res.redirect("/");
+    return;
+   }
+
+
+   crypto.randomBytes(8, function(ex, buf) {
+
+      var token = {
+        token   : buf.toString('base64').replace(/\//g,'_').replace(/\+/g,'-'),
+        created : new Date(), //today
+        expires : new Date(new Date().getTime() + (24 * 60 * 60 * 1000)), //tomorrow,
+        active  : true
+      };
+
+      User.findOne({
+        username  :   req.param("username")
+      }).done(function(err, user) {
+          if(user) {
+            req.session.message = {
+              type    : "error",
+              message : "The Username has already been used."
+            };
+            res.redirect("/");
+          }else {
+            createUserWithEmailInstance(req, res, token);
+          }
+      });
+    
+
+    });
+
   },
 
 
 
 };
 
+
+function createUserWithEmailInstance(req, res, token) {
+  User.create({
+    username  :   req.param("username"),
+    password  :   req.param("password"),
+    email     :   req.param("email"),
+    active    :   false,
+    tokens    :   [token]
+  }).done(function(err, user) {
+    if(err) {
+      req.session.message = {
+        type      : "error",
+        message   : "A database error has occured"
+      };
+    }else {
+      req.session.message = {
+        type      : "success",
+        message   : "Your Account has been created. Please Proceed on Validating your account by accessing the access token in the email" 
+      }; 
+    }
+    res.redirect("/");
+  });
+}
 function createUserInstance(req, res, token) {
   User.create({
         mobile_number : req.param("mobile_number"),
