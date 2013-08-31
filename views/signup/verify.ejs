@@ -6,3 +6,20 @@
          <p>With <strong>Weather on The Go</strong> you don't have to check the website everytime - no need for those long and hassling messages just to tell the weather. Know the weather forcast in an instant with our SMS Integration. Knowing the weather in an instant couldn't be much easier.</p> 
   </div>
 </div>
+ <div class="register">
+    <div class="container">
+		<div class="alert alert-warning">
+				Please input the verification code sent to your cellphone number and input your corresponding cellphone number as well.
+			</div>
+		<div class="row">
+			<div class="col-md-4 col-md-offset-4">
+				<form action="/signup/confirm" method="POST">
+					<input type="hidden" name="_csrf" value="<%-_csrf%>" />
+					<input type="text" name="verify_token" value=""  placeholder="Enter Verification Token"  class="form-control"/>
+					<input type="text" name="mobile_number" value="" placeholder="Enter your Phone Number" class="form-control" />
+					<button class=" btn btn-info btn-lg btn-block" type="Submit" class="form-control">Verify</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
