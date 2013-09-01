@@ -5,6 +5,8 @@
  * @description	:: Contains logic for handling requests.
  */
 
+
+var Forcast  = require('forecast.io');
 module.exports = {
 
   /* e.g.
@@ -51,12 +53,17 @@ module.exports = {
     
 
     Region.find().done(function(err, regions) {
-      var data = {
-        user : user,
-        message : message,
-        regions : regions
-      };
-      res.view(data);
+      Forcasts.find({
+        region_code : user.region
+      }).sort('createdAt DESC').done(function(err, forcasts) {
+           var data = {
+              user : user,
+              message  : message,
+              regions  : regions,
+              forcasts  : forcasts
+            };
+            res.view(data);
+      });
     });
     
 
