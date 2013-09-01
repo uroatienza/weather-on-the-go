@@ -38,7 +38,7 @@
     <input type="password" name="password" id="password" class="txtfield" tabindex="2" placeHolder="Password">
     <div class="buttons">
     <input type="submit" name="loginbtn" id="loginbtn" class="btn btn-info" value="Login" tabindex="3">
-    <button type="submit" class="btn btn-info hidemodal" name="cancel">Cancel</button>
+    <button type="button" class="btn btn-info hidemodal" name="cancel">Cancel</button>
     </div>
   </form> 
 </div>
@@ -47,9 +47,10 @@
     <div class="container">
       <h1>Register</h1>
       <div class="number">
-        <form id="registerform" name="registerform" method="" action="">
+        <form id="registerform" name="registerform" method="post" action="/signup/mobile">
           <!-- <label for="number">Mobile Number:</label> -->
-          <input type="text" name="number" placeHolder="Enter your Mobile Number +63 XXX XXXXXXX  " class="txtfield">
+          <input type="hidden" name="_csrf" value="<%-_csrf%>" />
+          <input type="text" name="mobile_number" placeHolder="Enter your Mobile Number +63 XXX XXXXXXX  " class="txtfield">
           <div class="buttons">
           <button type="submit" class="btn btn-info" name="submit">Submit</button>
           <button type="submit" class="btn btn-info hidemodal" name="cancel">Cancel</button>
@@ -58,13 +59,14 @@
       </div>
       <div class="or"><img src="images/or.png"></div>
       <div class="web ">
-        <form id="registerform" name="registerform" method="" action="">
+        <form id="registerform" name="registerform" method="POST" action="/signup/web">
           <!-- <label for="username">Username:</label> -->
+           <input type="hidden" name="_csrf" value="<%-_csrf%>" />
           <input type="text" name="username" placeHolder="Username" class="txtfield">
           <!-- <label for="password">Password:</label> -->
           <input type="password" name="password" placeHolder="Password" class="txtfield">
           <!-- <label for="confirm">Confirm Password:</label> -->
-          <input type="password" name="confirm" class="txtfield" placeHolder="Password">
+          <input type="password" name="repeat_password" class="txtfield" placeHolder="Password">
           <!-- <label for="email">Email:</label> -->
           <input type="email" name="email" class="txtfield" placeHolder="email@gmail.com">
           <div class="buttons">
@@ -79,23 +81,7 @@
 <script type="text/javascript">
   $(function(){
 
-     $('#loginform').submit(function(e){
-      return false;
-   });
-
   $('#modaltrigger').leanModal({
-    top: 110, overlay: 0.45, closeButton: ".hidemodal"
-  });
-});
-</script>
-
-
-<script type="text/javascript">
-  $(function(){
-    $('#loginform').submit(function(e){
-      return false;
-  });
-  $('#triggermodal').leanModal({
     top: 110, overlay: 0.45, closeButton: ".hidemodal"
   });
 });
