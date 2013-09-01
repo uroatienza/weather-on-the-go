@@ -1,0 +1,242 @@
+<!-- Header Start -->
+	<div class="header">
+		<div class="container">	
+		  	<nav class="navbar navbar-default" role="navigation">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex-collapse">
+						<span class="sr-only">Toggle Navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+				<a href="/"><div class="logo"></div></a>
+				</div>
+				<div class="navigation">
+					<div class="collapse navbar-collapse navbar-ex1-collapse">
+						<ul class="nav navbar-nav">
+							<li class=""><a href="/"><i class="glyphicon glyphicon-home"></i>Home</a></li>
+							<li class=""><a href=""><i class="glyphicon glyphicon-cog"></i>How it works</a></li>
+							<li class=""><a href=""><i class="glyphicon glyphicon-wrench"></i>Features</a></li>
+							<li class=""><a href=""><i class="glyphicon glyphicon-cloud"></i>About</a></li>
+							<li class=""><a href=""><i class="glyphicon glyphicon-phone"></i>Contacts</a></li>
+						</ul>
+						<ul class="nav navbar-nav navbar-right">
+							<li class="active"><a href="#"><i class="glyphicon glyphicon-dashboard"></i> Dashboard</a></li>
+							<li><a href="/bridge/logout"><i class="glyphicon glyphicon-log-out"></i> Logout</a></li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+		</div>
+	</div>
+<!-- Header End -->
+
+<!-- Main Start -->
+<div class="main">
+	<div class="row">
+		<div class="container dashboard">
+          <div class="main col-md-8">
+          <div class="section">
+              <div class="sec-header">
+                <h2>Past Forecast</h2>
+              </div>
+              <div class="sec-body">
+              <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>Date &amp; Time</th>
+                          <th>Weather</th>
+                          <th>Temperature</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>September 1,2013</td>
+                          <td>Party Clouds</td>
+                          <td>82&deg;</td>
+                        </tr>
+                        <tr>
+                          <td>September 1,2013</td>
+                          <td>Party Clouds</td>
+                          <td>82&deg;</td>
+                        </tr>
+                        <tr>
+                          <td>September 1,2013</td>
+                          <td>Party Clouds</td>
+                          <td>82&deg;</td>
+                        </tr>
+                        <tr>
+                          <td>September 1,2013</td>
+                          <td>Party Clouds</td>
+                          <td>82&deg;</td>
+                        </tr>
+                        <tr>
+                          <td>September 1,2013</td>
+                          <td>Party Clouds</td>
+                          <td>82&deg;</td>
+                        </tr>
+                      </tbody>
+              </table>
+              </div>
+            </div>
+
+            <div class="section">
+              <div class="sec-header">
+                <h2>Settings</h2>
+              </div>
+              <div class="sec-body">
+                <% if(message != null) { %>
+                <div class="alert alert-<%-message.type == "error" ? 'danger' : 'info'%>">
+                  <%-message.message%>
+                </div>
+                <% } %>
+                <form class="form-horizontal" role="form" method="post" action="/user/save-profile">
+                  <div class="form-group">
+                    <label for="selectNotify" class="col-lg-3 control-label">Notify Every</label>
+                    <div class="col-lg-9">
+                      <select class="form-control" name="notify">
+                        <option value="1" <%-user.notify == 1 ? "selected" : ""%>>3 AM</option>
+                        <option value="2" <%-user.notify == 2 ? "selected" : ""%>>6 AM</option>
+                        <option value="3" <%-user.notify == 3 ? "selected" : ""%>>9 AM</option>
+                        <option value="4" <%-user.notify == 4 ? "selected" : ""%>>12 AM</option>
+                        <option value="5" <%-user.notify == 5 ? "selected" : ""%>>3 PM</option>
+                        <option value="6" <%-user.notify == 6 ? "selected" : ""%>>6 PM</option>
+                        <option value="7" <%-user.notify == 7 ? "selected" : ""%>>9 PM</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="selectNotify" class="col-lg-3 control-label">Select Region</label>
+                    <div class="col-lg-9">
+                      <select class="form-control" name="region">
+                        <% regions.forEach(function(region) { %>
+                          <option value="<%-region.region_code%>" <%-region.region_code==user.region ? "selected" : ""%>><%-region.region_name%></option> 
+
+                        <% }); %>
+                      </select>
+                    </div>
+                  </div>  
+                
+                  <input type="hidden" name="_csrf" value="<%-_csrf%>" />
+                  <div class="form-group">
+                    <label for="inputEmail1" class="col-lg-3 control-label">Mobile Number</label>
+                    <div class="col-lg-9">
+                      <input type="tel" class="form-control" id="inputMobile1" placeholder="Mobile Number" value="<%-user.mobile_number%>" name="mobile_number">
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="inputEmail1" class="col-lg-3 control-label">E-Mail Address</label>
+                    <div class="col-lg-9">
+                      <input type="tel" class="form-control" id="inputEmail1" placeholder="E-Mail Address" value="<%-user.email%>" name="email">
+                    </div>
+                  </div>
+                    <hr>
+                    <p>To save your changes you need to enter your password here for verifications..</p>
+                    <div class="form-group">
+                    <label for="inputPassword1" class="col-lg-3 control-label">Verify Password</label>
+                    <div class="col-lg-9">
+                      <input type="password" class="form-control" id="inputPassword2" placeholder="Type your password" name="password">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-lg-offset-3 col-lg-9">
+                      <button type="submit" class="btn btn-default">Submit</button>
+                      <button type="cancel" class="btn btn-default">Cancel</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <div class="section">
+              <div class="sec-header">
+                <h2>Documentation</h2>
+              </div>
+              <div class="sec-body">
+                <div class="steps">
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam euismod ac justo non rhoncus. Donec interdum ante quam. Curabitur pellentesque tortor elit, sed dapibus justo vestibulum quis. Cras elementum, purus quis rutrum dignissim, risus nunc mattis eros, a porttitor velit erat vitae leo. Sed pretium ligula quis faucibus tempor. Donec faucibus erat ut nisl lobortis, et vehicula massa fringilla. Praesent aliquam egestas massa,</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="sidebar col-md-4">
+
+              <div class="section">
+              <div class="sec-header">
+                <h2>Right Now!</h2>
+              </div>
+              <div class="sec-body">
+                <div class="cloud clearfix">
+                  <div class="p-cloud"></div>
+                  <h1 class="temp">82 &deg;</h1>
+                  <h2 class="descp">Party Cloudy</h2>
+                </div>
+                <div class="clear"></div>
+              </div>
+
+            </div>
+
+            <div class="section">
+              <div class="sec-header">
+                <h2>Account Details</h2>
+              </div>
+              <div class="sec-body">
+                <dl class="dl-horizontal">
+                  <dt>E-Mail Address</dt>
+                  <dd>juandelacruz@gmail.com</dd>
+                  <dt>Mobile Number</dt>
+                  <dd>+63 9274016266</dd>
+                  <dt>Region</dt>
+                  <dd>CAR</dd>
+                  <dt>City</dt>
+                  <dd>Baguio City</dd>
+                </dl>
+              </div>
+            </div>
+
+            <div class="section">
+              <div class="sec-header">
+                <h2>Individual Message</h2>
+              </div>
+              <div class="sec-body">
+                <form class="form-inline individual" role="form">
+                  <div class="form-group">
+                    <input type="tel" class="form-control" placeholder="Add Mobile Number">
+                  </div>
+                  <button type="button" class="btn btn-primary btn-lg btn-block"><i class="glyphicon glyphicon-send"></i> Send a message</button>
+                </form>
+
+
+              </div>
+            </div>
+
+            <div class="section">
+              <div class="sec-header">
+                <h2>Union Mass Message</h2>
+              </div>
+              <div class="sec-body">
+                <form class="form-inline union-list" role="form">
+                  <div class="form-group">
+                    <input type="tel" class="form-control" placeholder="Add Mobile Number">
+                  </div>
+                  <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-plus-sign"></i></button>
+                </form>
+
+                <ol class="names">
+                  <b>List of Name &amp; Numbers</b>
+                  <li>[Juan Dela Cruz] +63 9322279328 <a class="pull-right" href="#"><i class="glyphicon glyphicon-trash"></i></a></li>
+                  <li>[Juan Dela Cruz] +63 9322279328 <a class="pull-right" href="#"><i class="glyphicon glyphicon-trash"></i></a></li>
+                  <li>[Juan Dela Cruz] +63 9322279328 <a class="pull-right" href="#"><i class="glyphicon glyphicon-trash"></i></a></li>
+                  <li>[Juan Dela Cruz] +63 9322279328 <a class="pull-right" href="#"><i class="glyphicon glyphicon-trash"></i></a></li>
+                </ol>
+
+                <button type="button" class="btn btn-primary btn-lg btn-block"><i class="glyphicon glyphicon-send"></i> Send a message</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+<!-- Main End -->

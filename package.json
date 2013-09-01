@@ -11,7 +11,7 @@
         "optimist": "0.3.4",
         "sails-mongo" : "0.9.*",
         "cron"  : "*",
-        "time"  : "*"
+        "forecast.io" : "*"
     },
     "scripts": {
         "start": "node app.js",

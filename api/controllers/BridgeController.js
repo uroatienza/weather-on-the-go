@@ -55,7 +55,8 @@ module.exports = {
 
     // This will render the view: 
     // /home/gian/weather-on-the-go/views/bridge/logout.ejs
-    res.view();
+    req.session.user = undefined;
+    res.redirect("/user/dashboard");
 
   },
 
