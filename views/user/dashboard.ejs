@@ -50,31 +50,15 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>September 1,2013</td>
-                          <td>Party Clouds</td>
-                          <td>82&deg;</td>
-                        </tr>
-                        <tr>
-                          <td>September 1,2013</td>
-                          <td>Party Clouds</td>
-                          <td>82&deg;</td>
-                        </tr>
-                        <tr>
-                          <td>September 1,2013</td>
-                          <td>Party Clouds</td>
-                          <td>82&deg;</td>
-                        </tr>
-                        <tr>
-                          <td>September 1,2013</td>
-                          <td>Party Clouds</td>
-                          <td>82&deg;</td>
-                        </tr>
-                        <tr>
-                          <td>September 1,2013</td>
-                          <td>Party Clouds</td>
-                          <td>82&deg;</td>
-                        </tr>
+                      
+                        <% forcasts.forEach(function(forcast){%> 
+                              <tr>
+                                <td><%-forcast.createdAt%></td>
+                                <td><%-forcast.forcast.summary%></td>
+                                <td><%-forcast.forcast.temperature%>&deg;</td>
+                              </tr>
+
+                        <% });%>
                       </tbody>
               </table>
               </div>
@@ -186,30 +170,21 @@
               <div class="sec-body">
                 <dl class="dl-horizontal">
                   <dt>E-Mail Address</dt>
-                  <dd>juandelacruz@gmail.com</dd>
+                  <dd><%-user.email%></dd>
                   <dt>Mobile Number</dt>
-                  <dd>+63 9274016266</dd>
+                  <dd><%-user.mobile_number%></dd>
                   <dt>Region</dt>
-                  <dd>CAR</dd>
-                  <dt>City</dt>
-                  <dd>Baguio City</dd>
+                  <dd><%-user.region%></dd>
                 </dl>
               </div>
             </div>
 
             <div class="section">
               <div class="sec-header">
-                <h2>Individual Message</h2>
+                <h2>Send Forcast Now</h2>
               </div>
               <div class="sec-body">
-                <form class="form-inline individual" role="form">
-                  <div class="form-group">
-                    <input type="tel" class="form-control" placeholder="Add Mobile Number">
-                  </div>
-                  <button type="button" class="btn btn-primary btn-lg btn-block"><i class="glyphicon glyphicon-send"></i> Send a message</button>
-                </form>
-
-
+                  <a href="/api/send-forcast" class="btn btn-primary btn-lg btn-block"><i class="glyphicon glyphicon-send"></i> Send Forcast Now</a>
               </div>
             </div>
 
