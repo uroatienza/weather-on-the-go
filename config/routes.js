@@ -43,7 +43,15 @@ module.exports.routes = {
   '/about'  : {
     controller  : 'HomeController',
     action      : 'about'
-  }
+  },
+   '/features'  : {
+    controller  : 'HomeController',
+    action      : 'contact'
+  },
+   '/works'  : {
+    controller  : 'HomeController',
+    action      : 'works'
+  },
 
   /*
   // But what if you want your home page to display
