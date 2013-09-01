@@ -60,6 +60,16 @@ module.exports = {
     // /home/gian/weather-on-the-go/views/home/contact.ejs
     res.view();
 
+  },
+
+  works : function(req, res) {
+    res.view();
+  },
+
+  features : function(req, res) {
+    res.view({
+      view : "home/about.ejs"
+    });
   }
 
 };
