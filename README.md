@@ -1,2 +1,2 @@
-# weather-on-the-go
+# Weather On The Go
 ### a Sails application
